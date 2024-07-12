@@ -1,0 +1,90 @@
+/* KaikkiAjot.css */
+
+.kaikki-ajot-container {
+    width: 80%;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .kaikki-ajot-container h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  .ajo-list {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .ajo-item {
+    background-color: #f0f0f0;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .ajo-info {
+    width: 60%;
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .ajo-info span {
+    margin: 5px 0;
+    font-size: 16px;
+    color: #303030;
+  }
+  .ajo-info span.status {
+    font-size: 18px;
+    font-weight: bold;
+    color: rgb(0, 0, 0);
+  }
+  
+  .nimi {
+    font-weight: bold;
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+  .ajo-actions {
+    width: 45%;
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .action-button {
+    display: inline-block;
+    padding: 1em;
+    font-size: 15px;
+    color: #ffffff;
+    background-color: #9c9fa3;
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+    margin-top: 5px;
+    margin-right: 3px;
+  }
+  .action-button:hover {
+    background-color: #007bff;
+  }
+  .action-button.started {
+    background-color: #ffc107; /* Vihreä väri aloitetulle */
+  }
+  .action-button.completed {
+    background-color: #28a745; /* Harmaa väri suoritetulle */ 
+  }
+  .action-button.not-started {
+    background-color: #505357; 
+  }
+  .action-button.completed-disabled {
+    background-color: #535353;
+  }
+  
