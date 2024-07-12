@@ -1,0 +1,52 @@
+.topBar {
+    width: 100%;
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+  }
+  
+  .topBar-content {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+  }
+  
+  .hamburger-menu {
+    font-size: 26px;
+    cursor: pointer;
+  }
+  
+  .menu {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 50px;
+    left: 0px;
+    background-color: #007bff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 1;
+  }
+  
+  .menu.open {
+    display: flex;
+  }
+  
+  .menu a {
+    color: #fff;
+    padding: 10px 20px;
+    text-decoration: none;
+    font-size: 20px;
+  }
+  
+  .menu a:hover {
+    background-color: #0056b3;
+  }
+  .hakuKentta {
+    margin-left: auto;
+  }

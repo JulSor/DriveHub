@@ -9,6 +9,7 @@ import HakuKentta from './components/HakuKentta/HakuKentta.jsx';
 import Ajot from './components/Ajot'; // tuo ajotiedot
 import NoPage from './components/NoPage';
 import PageButtons from './components/PageButtons.jsx';
+import TopBar from './components/YlaPalkki/TopBar.jsx';
 import './App.css';
 
 const App = () => {
@@ -53,10 +54,8 @@ const App = () => {
   return (
     <Router>
       <div className="container">
-        <div className='topBar'>
-          <HakuKentta searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
-        </div>
-          <PageButtons/>
+        <TopBar/>
+        <PageButtons/>
         <Routes>
           <Route path="/" element={<KaikkiAjot ajot={filteredAjot} muutaStatus={muutaStatus} />} />
           <Route path="/ei-aloitetut" element={<EiAloitetutAjot ajot={filteredAjot.filter(ajo => ajo.status === 'Ei aloitettu')} muutaStatus={muutaStatus} />} />
