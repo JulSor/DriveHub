@@ -5,7 +5,6 @@ import AloitetutAjot from './components/AloitetutAjot/AloitetutAjot.jsx';
 import EiAloitetutAjot from './components/EiAloitetutAjot/EiAloitetutAjot.jsx';
 import SuoritetutAjot from './components/SuoritetutAjot/SuoritetutAjot.jsx';
 import LisaaAjo from './components/LisaaAjo/LisaaAjo.jsx';
-import HakuKentta from './components/HakuKentta/HakuKentta.jsx';
 import Ajot from './components/Ajot'; // tuo ajotiedot
 import NoPage from './components/NoPage';
 import PageButtons from './components/PageButtons.jsx';
@@ -19,7 +18,7 @@ const App = () => {
   //   { id: 3, nimi: 'Ajo 3', paivamaara: '03.07.2024', tapahtumanTyyppi: 'Kuljetus', kohde: 'Kohde 3', kollienMaara: 20, lisaTiedot: "", status: 'Suoritettu' },
   // ]);
   const [ajot, setAjot] = useState(Ajot);
-  const [searchTerm, setSearchTerm] = useState('');
+  const [filteredAjot, setFilteredAjot] = useState(ajot);
 
   const lisaaAjo = (paivamaara, tapahtumanTyyppi, kohde, kollienMaara, lisaTiedot) => {
     const uusiAjo = {
@@ -32,30 +31,24 @@ const App = () => {
       lisaTiedot,
       status: 'Ei aloitettu'
     };
-    setAjot([...ajot, uusiAjo]);
+    const updatedAjot = [...ajot, uusiAjo];
+    setAjot(updatedAjot);
+    setFilteredAjot(updatedAjot);
   };
 
   const muutaStatus = (id, uusiStatus) => {
-    setAjot(
-      ajot.map((ajo) =>
-        ajo.id === id ? { ...ajo, status: uusiStatus } : ajo
-      )
+    const updatedAjot = ajot.map((ajo) =>
+      ajo.id === id ? { ...ajo, status: uusiStatus } : ajo
     );
+    setAjot(updatedAjot);
+    setFilteredAjot(updatedAjot);
   };
-
-  const filteredAjot = ajot.filter(ajo =>
-    ajo.nimi.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    ajo.paivamaara.includes(searchTerm) ||
-    ajo.tapahtumanTyyppi.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    ajo.kohde.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    ajo.lisaTiedot.toLowerCase().includes(searchTerm.toLowerCase())
-  );
 
   return (
     <Router>
       <div className="container">
-        <TopBar/>
-        <PageButtons/>
+        <TopBar ajot={ajot} setFilteredAjot={setFilteredAjot} />
+        {/* <PageButtons /> */}
         <Routes>
           <Route path="/" element={<KaikkiAjot ajot={filteredAjot} muutaStatus={muutaStatus} />} />
           <Route path="/ei-aloitetut" element={<EiAloitetutAjot ajot={filteredAjot.filter(ajo => ajo.status === 'Ei aloitettu')} muutaStatus={muutaStatus} />} />
@@ -68,5 +61,4 @@ const App = () => {
     </Router>
   );
 };
-
 export default App;

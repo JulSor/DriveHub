@@ -1,13 +1,24 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from 'react-router-dom';
-import HakuKentta from "../HakuKentta/HakuKentta";
 import "./TopBar.css";
 
 
-const TopBar = () => {
+const TopBar = ({ ajot, setFilteredAjot }) => {
 
 
   const [menuOpen, setMenuOpen] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
+
+  useEffect(() => {
+    const filteredAjot = ajot.filter(ajo =>
+      ajo.nimi.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      ajo.paivamaara.includes(searchTerm) ||
+      ajo.tapahtumanTyyppi.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      ajo.kohde.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      ajo.lisaTiedot.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    setFilteredAjot(filteredAjot);
+  }, [searchTerm, ajot, setFilteredAjot]);
 
     return (
     <>
@@ -23,7 +34,13 @@ const TopBar = () => {
                 <Link to="/suoritetut" onClick={() => setMenuOpen(false)}>Suoritetut</Link>
             </div>
             <div className="hakuKentta">
-                <HakuKentta/>
+                <input
+                    type="text"
+                    placeholder="Hae ajoja..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    className="search-input"
+                />
             </div>
         </div>
         </div>
