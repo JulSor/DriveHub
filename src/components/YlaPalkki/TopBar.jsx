@@ -1,11 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Link } from 'react-router-dom';
-import "./TopBar.css";
-
+import './TopBar.css';
 
 const TopBar = ({ ajot, setFilteredAjot }) => {
-
-
   const [menuOpen, setMenuOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
 
@@ -20,32 +17,32 @@ const TopBar = ({ ajot, setFilteredAjot }) => {
     setFilteredAjot(filteredAjot);
   }, [searchTerm, ajot, setFilteredAjot]);
 
-    return (
-    <>
-        <div className="topBar">
-            <div className="topBar-content">
-            <div className="hamburger-menu" onClick={() => setMenuOpen(!menuOpen)}>
-                ☰
-            </div>
-            <div className={`menu ${menuOpen ? 'open' : ''}`}>
-                <Link to="/" onClick={() => setMenuOpen(false)}>Kaikki ajot</Link>
-                <Link to="/ei-aloitetut" onClick={() => setMenuOpen(false)}>Ei aloitetut</Link>
-                <Link to="/aloitetut" onClick={() => setMenuOpen(false)}>Aloitetut</Link>
-                <Link to="/suoritetut" onClick={() => setMenuOpen(false)}>Suoritetut</Link>
-            </div>
-            <div className="hakuKentta">
-                <input
-                    type="text"
-                    placeholder="Hae ajoja..."
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                    className="search-input"
-                />
-            </div>
+  return (
+    <div className="topBar">
+      <div className="topBar-content">
+        <div className="hamburger-menu" onClick={() => setMenuOpen(!menuOpen)}>
+          ☰
         </div>
+        <div className={`menu ${menuOpen ? 'open' : ''}`}>
+          <Link to="/" onClick={() => setMenuOpen(false)}>Kaikki ajot</Link>
+          <Link to="/ei-aloitetut" onClick={() => setMenuOpen(false)}>Ei aloitetut</Link>
+          <Link to="/aloitetut" onClick={() => setMenuOpen(false)}>Aloitetut</Link>
+          <Link to="/suoritetut" onClick={() => setMenuOpen(false)}>Suoritetut</Link>
+          <Link to="/tankkaukset" onClick={() => setMenuOpen(false)}>Tankkaukset</Link>
         </div>
-    </>
-    )
-}
+        <div className="topBar-content">
+          <Link to="/lisaa-ajo" className="add-button">testi</Link>
+          <input
+            type="text"
+            placeholder="Hae ajoja..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="search-input"
+          />
+        </div>
+      </div>
+    </div>
+  );
+};
 
 export default TopBar;

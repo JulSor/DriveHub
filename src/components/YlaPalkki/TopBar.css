@@ -13,19 +13,25 @@
     display: flex;
     align-items: center;
     width: 100%;
-    justify-content: space-between;
   }
   
   .hamburger-menu {
     font-size: 26px;
     cursor: pointer;
   }
+  .add-button {
+    font-size: 40px;
+    font-weight: bolder;
+    text-decoration: none;
+    color: #ffffff;
+    margin-right: 10px;
+  }
   
   .menu {
     display: none;
     flex-direction: column;
     position: absolute;
-    top: 50px;
+    top: 75px;
     left: 0px;
     background-color: #007bff;
     border-radius: 8px;
@@ -47,6 +53,9 @@
   .menu a:hover {
     background-color: #0056b3;
   }
-  .hakuKentta {
-    margin-left: auto;
+  .search-input {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
   }
