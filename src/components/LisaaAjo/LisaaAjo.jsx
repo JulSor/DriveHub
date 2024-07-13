@@ -3,7 +3,7 @@ import './LisaaAjo.css';
 
 const LisaaAjo = ({ lisaaAjo }) => {
   const [paivamaara, setPaivamaara] = useState('');
-  const [tapahtumanTyyppi, setTapahtumanTyyppi] = useState('');
+  const [tapahtumanTyyppi, setTapahtumanTyyppi] = useState('Ajo');
   const [kohde, setKohde] = useState('');
   const [kollienMaara, setKollienMaara] = useState('');
   const [lisaTiedot, setLisaTiedot] = useState('');
@@ -12,7 +12,7 @@ const LisaaAjo = ({ lisaaAjo }) => {
     e.preventDefault();
     lisaaAjo(paivamaara, tapahtumanTyyppi, kohde, parseInt(kollienMaara), lisaTiedot);
     setPaivamaara('');
-    setTapahtumanTyyppi('');
+    setTapahtumanTyyppi('Ajo');
     setKohde('');
     setKollienMaara('');
     setLisaTiedot('');
@@ -44,26 +44,53 @@ const LisaaAjo = ({ lisaaAjo }) => {
             <option value="Tankkaus">Tankkaus</option>
           </select>
         </div>
-        <div className="form-group">
-          <label htmlFor="kohde">Kohde:</label>
-          <input
-            type="text"
-            id="kohde"
-            value={kohde}
-            onChange={(e) => setKohde(e.target.value)}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="kollienMaara">Kollien Määrä:</label>
-          <input
-            type="number"
-            id="kollienMaara"
-            value={kollienMaara}
-            onChange={(e) => setKollienMaara(e.target.value)}
-            required
-          />
-        </div>
+        {tapahtumanTyyppi === 'Tankkaus' ? (
+          <>
+            <div className="form-group">
+              <label htmlFor="kohde">Kilometrit:</label>
+              <input
+                type="number"
+                id="kohde"
+                value={kohde}
+                onChange={(e) => setKohde(e.target.value)}
+                required
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="kollienMaara">Polttoaineen määrä:</label>
+              <input
+                type="number"
+                id="kollienMaara"
+                value={kollienMaara}
+                onChange={(e) => setKollienMaara(e.target.value)}
+                required
+              />
+            </div>
+          </>
+        ) : (
+          <>
+            <div className="form-group">
+              <label htmlFor="kohde">Kohde:</label>
+              <input
+                type="text"
+                id="kohde"
+                value={kohde}
+                onChange={(e) => setKohde(e.target.value)}
+                required
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="kollienMaara">Kollien määrä:</label>
+              <input
+                type="number"
+                id="kollienMaara"
+                value={kollienMaara}
+                onChange={(e) => setKollienMaara(e.target.value)}
+                required
+              />
+            </div>
+          </>
+        )}
         <div className="form-group">
           <label htmlFor="lisaTiedot">Lisätietoja:</label>
           <input
@@ -71,7 +98,6 @@ const LisaaAjo = ({ lisaaAjo }) => {
             id="lisaTiedot"
             value={lisaTiedot}
             onChange={(e) => setLisaTiedot(e.target.value)}
-            required
           />
         </div>
         <button type="submit" className="submit-button">Lisää Ajo</button>
