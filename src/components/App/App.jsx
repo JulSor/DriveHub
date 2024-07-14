@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes, BrowserRouter } from 'react-router-dom';
-import KaikkiAjot from './components/KaikkiAjot/KaikkiAjot.jsx';
-import AloitetutAjot from './components/AloitetutAjot/AloitetutAjot.jsx';
-import EiAloitetutAjot from './components/EiAloitetutAjot/EiAloitetutAjot.jsx';
-import SuoritetutAjot from './components/SuoritetutAjot/SuoritetutAjot.jsx';
-import LisaaAjo from './components/LisaaAjo/LisaaAjo.jsx';
-import Ajot from './components/Ajot'; // tuo ajotiedot
-import NoPage from './components/NoPage';
-import TopBar from './components/YlaPalkki/TopBar.jsx';
-import Tankkaukset from './components/Tankkaukset/Tankkaukset.jsx';
+import KaikkiAjot from '../KaikkiAjot/KaikkiAjot.jsx';
+import AloitetutAjot from '../AloitetutAjot/AloitetutAjot.jsx';
+import EiAloitetutAjot from '../EiAloitetutAjot/EiAloitetutAjot.jsx';
+import SuoritetutAjot from '../SuoritetutAjot/SuoritetutAjot.jsx';
+import LisaaAjo from '../LisaaAjo/LisaaAjo.jsx';
+import Ajot from '../Ajot.js'; // tuo ajotiedot
+import NoPage from '../NoPage.jsx';
+import TopBar from '../YlaPalkki/TopBar.jsx';
+import Tankkaukset from '../Tankkaukset/Tankkaukset.jsx';
 import './App.css';
 
 const App = () => {
