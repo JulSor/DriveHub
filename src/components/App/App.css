@@ -2,8 +2,6 @@
 
 .container {
     width: 100%;
-    margin: 0 auto;
-    padding: 20px;
     background-color: #f0f0f0;
     display: flex;
     flex-direction: column;
@@ -17,50 +15,6 @@
     gap: 20px;
     width: 80%;
   }
-  /* .pageButtonContainer {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 20px auto;
-    padding: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  } */
-  
-/*  .pageButton {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-    text-align: center;
-    text-decoration: none;
-    font-size: 25px;
-    color: #ffffff;
-    background-color: #007bff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    aspect-ratio: 4 / 1; /* Neljän SivuNapin muoto */
-  /* } */ */
-  /*  */
-  /* .addButton {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-    text-align: center;
-    text-decoration: none;
-    font-size: 16px;
-    color: #ffffff;
-    background-color: #007bff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  } */
-/*   
-  .button:hover {
-    background-color: #0056b3;
-  } */
   
   .login-container {
     display: flex;

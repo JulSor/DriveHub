@@ -16,6 +16,16 @@ const Tankkaukset = ({ ajot, muutaStatus }) => {
     return 'action-button';
   };
 
+  
+  const formatPaivamaara = (dateStr) => {
+    const date = new Date(dateStr);
+    return date.toLocaleDateString('fi-FI', {
+      day: '2-digit',
+      month: '2-digit',
+      year: '2-digit',
+    });
+  };
+
   const tankkausAjot = ajot.filter(ajo => ajo.tapahtumanTyyppi === 'Tankkaus');
 
   return (
@@ -26,8 +36,7 @@ const Tankkaukset = ({ ajot, muutaStatus }) => {
           <li className='ajo-item' key={ajo.id}>
             <div className='ajo-info'>
               <span className='nimi'>{ajo.nimi}</span>
-              <span className='paivamaara'><strong>Päivämäärä:</strong> {ajo.paivamaara}</span>
-              <span className='tapahtumanTyyppi'><strong>Tapahtuma:</strong> {ajo.tapahtumanTyyppi}</span>
+              <span className='paivamaara'><strong>Päivämäärä:</strong> {formatPaivamaara(ajo.paivamaara)}</span>
               <span className='kohde'><strong>Kilometrit:</strong> {ajo.kohde}</span>
               <span className='kollienMaara'><strong>Polttoaineen määrä:</strong> {ajo.kollienMaara + "L"}</span>
               <span className='lisaTiedot'><strong>Lisätietoja:</strong> {ajo.lisaTiedot}</span>
