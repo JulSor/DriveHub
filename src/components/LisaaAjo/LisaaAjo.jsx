@@ -10,7 +10,7 @@ const LisaaAjo = ({ lisaaAjo }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    lisaaAjo(paivamaara, tapahtumanTyyppi, kohde, kollienMaara, lisaTiedot);
+    lisaaAjo(paivamaara, tapahtumanTyyppi, kohde, parseInt(kollienMaara), lisaTiedot);
     setPaivamaara('');
     setTapahtumanTyyppi('Ajo');
     setKohde('');
@@ -33,7 +33,7 @@ const LisaaAjo = ({ lisaaAjo }) => {
           />
         </div>
         <div className="form-group">
-          <label htmlFor="tapahtumanTyyppi">Tapahtuman Tyyppi:</label>
+          <label htmlFor="tapahtumanTyyppi">Tapahtuman tyyppi:</label>
           <select
             id="tapahtumanTyyppi"
             value={tapahtumanTyyppi}
@@ -47,9 +47,9 @@ const LisaaAjo = ({ lisaaAjo }) => {
         {tapahtumanTyyppi === 'Tankkaus' ? (
           <>
             <div className="form-group">
-              <label htmlFor="kohde">Kohde:</label>
+              <label htmlFor="kohde">Kilometrit:</label>
               <input
-                type="text"
+                type="number"
                 id="kohde"
                 value={kohde}
                 onChange={(e) => setKohde(e.target.value)}
@@ -57,7 +57,7 @@ const LisaaAjo = ({ lisaaAjo }) => {
               />
             </div>
             <div className="form-group">
-              <label htmlFor="kollienMaara">Kollien määrä:</label>
+              <label htmlFor="kollienMaara">Tankatut litrat:</label>
               <input
                 type="number"
                 id="kollienMaara"
