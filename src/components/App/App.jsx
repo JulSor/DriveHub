@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Route, Routes, BrowserRouter } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import KaikkiAjot from '../KaikkiAjot/KaikkiAjot.jsx';
 import AloitetutAjot from '../AloitetutAjot/AloitetutAjot.jsx';
 import EiAloitetutAjot from '../EiAloitetutAjot/EiAloitetutAjot.jsx';
@@ -9,13 +9,27 @@ import Ajot from '../Ajot.js'; // tuo ajotiedot
 import NoPage from '../NoPage.jsx';
 import TopBar from '../YlaPalkki/TopBar.jsx';
 import Tankkaukset from '../Tankkaukset/Tankkaukset.jsx';
+import Login from '../Login'; // Tuo Login-komponentti
+import { auth, db } from '../../firebase.js'; // Tuo auth Firebase:sta
 import { collection, getDocs, addDoc, updateDoc, doc } from 'firebase/firestore';
-import { db } from '../../firebase.js';
 import './App.css';
 
 const App = () => {
   const [ajot, setAjot] = useState([]);
   const [filteredAjot, setFilteredAjot] = useState([]);
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      if (user) {
+        setUser(user);
+      } else {
+        setUser(null);
+      }
+    });
+
+    return () => unsubscribe();
+  }, []);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -28,8 +42,9 @@ const App = () => {
     fetchData();
   }, []);
 
-  const lisaaAjo = async (paivamaara, tapahtumanTyyppi, kohde, kollienMaara, lisaTiedot) => {
+  const lisaaAjo = async (tilausNro, paivamaara, tapahtumanTyyppi, kohde, kollienMaara, lisaTiedot) => {
     const uusiAjo = {
+      tilausNro,
       paivamaara,
       tapahtumanTyyppi,
       kohde,
@@ -68,17 +83,23 @@ const App = () => {
 
   return (
     <Router>
-      <div className="container">
-        <TopBar ajot={ajot} setFilteredAjot={setFilteredAjot} />
-        <Routes>
-          <Route path="/" element={<KaikkiAjot ajot={filteredAjotWithoutTankkaus} muutaStatus={muutaStatus} />} />
-          <Route path="/ei-aloitetut" element={<EiAloitetutAjot ajot={filteredAjotWithoutTankkaus.filter(ajo => ajo.status === 'Ei aloitettu')} muutaStatus={muutaStatus} />} />
-          <Route path="/aloitetut" element={<AloitetutAjot ajot={filteredAjotWithoutTankkaus.filter(ajo => ajo.status === 'Aloitettu')} muutaStatus={muutaStatus} />} />
-          <Route path="/suoritetut" element={<SuoritetutAjot ajot={filteredAjotWithoutTankkaus.filter(ajo => ajo.status === 'Suoritettu')} />} />
-          <Route path="/tankkaukset" element={<Tankkaukset ajot={tankkausAjot} muutaStatus={muutaStatus} />} />
-          <Route path="/lisaa-ajo" element={<LisaaAjo lisaaAjo={lisaaAjo} />} />
-          <Route path="*" element={<NoPage />} />
-        </Routes>
+            <div className="container">
+        {user ? (
+          <>
+            <TopBar ajot={ajot} setFilteredAjot={setFilteredAjot} />
+            <Routes>
+              <Route path="/" element={<KaikkiAjot ajot={filteredAjotWithoutTankkaus} muutaStatus={muutaStatus} />} />
+              <Route path="/ei-aloitetut" element={<EiAloitetutAjot ajot={filteredAjotWithoutTankkaus.filter(ajo => ajo.status === 'Ei aloitettu')} muutaStatus={muutaStatus} />} />
+              <Route path="/aloitetut" element={<AloitetutAjot ajot={filteredAjotWithoutTankkaus.filter(ajo => ajo.status === 'Aloitettu')} muutaStatus={muutaStatus} />} />
+              <Route path="/suoritetut" element={<SuoritetutAjot ajot={filteredAjotWithoutTankkaus.filter(ajo => ajo.status === 'Suoritettu')} />} />
+              <Route path="/tankkaukset" element={<Tankkaukset ajot={tankkausAjot} muutaStatus={muutaStatus} />} />
+              <Route path="/lisaa-ajo" element={<LisaaAjo lisaaAjo={lisaaAjo} />} />
+              <Route path="*" element={<NoPage />} />
+            </Routes>
+          </>
+        ) : (
+          <Login />
+        )}
       </div>
     </Router>
   );

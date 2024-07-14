@@ -60,6 +60,7 @@ const TopBar = ({ ajot, setFilteredAjot }) => {
   useEffect(() => {
     const filteredAjot = ajot.filter(ajo => {
       const nimi = ajo.nimi ? ajo.nimi.toLowerCase() : '';
+      const tilausNro = ajo.tilausNro ? ajo.tilausNro.toLowerCase() : '';
       const paivamaara = ajo.paivamaara ? ajo.paivamaara : '';
       const tapahtumanTyyppi = ajo.tapahtumanTyyppi ? ajo.tapahtumanTyyppi.toLowerCase() : '';
       const kohde = ajo.kohde ? (typeof ajo.kohde === 'string' ? ajo.kohde.toLowerCase() : ajo.kohde.toString()) : '';
@@ -67,6 +68,7 @@ const TopBar = ({ ajot, setFilteredAjot }) => {
 
       return (
         nimi.includes(searchTerm.toLowerCase()) ||
+        tilausNro.includes(searchTerm) ||
         paivamaara.includes(searchTerm) ||
         tapahtumanTyyppi.includes(searchTerm.toLowerCase()) ||
         kohde.includes(searchTerm.toLowerCase()) ||

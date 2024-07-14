@@ -24,6 +24,7 @@ const KaikkiAjot = ({ ajot, muutaStatus }) => {
           <li className='ajo-item' key={ajo.id}>
             <div className='ajo-info'>
               <span className='nimi'>{ajo.nimi}</span>
+              <span className='tilausNro'><strong>Tilausnumero:</strong> {ajo.tilausNro}</span>
               <span className='paivamaara'><strong>Päivämäärä:</strong> {ajo.paivamaara}</span>
               <span className='tapahtumanTyyppi'><strong>Tapahtuma:</strong> {ajo.tapahtumanTyyppi}</span>
               <span className='kohde'><strong>Kohde:</strong> {ajo.kohde}</span>

@@ -1,5 +1,5 @@
 .topBar {
-    width: 100%;
+    width: 80%;
     background-color: #007bff;
     color: #fff;
     padding: 10px 20px;
@@ -31,8 +31,7 @@
     font-weight: bolder;
     text-decoration: none;
     color: #ffffff;
-    margin-right: 10px;
-    border: 1px solid black;
+    margin-right: 15px;
   }
 
   .search-input {
@@ -43,7 +42,7 @@
   }
   
   .hamburger-menu {
-    font-size: 26px;
+    font-size: 35px;
     cursor: pointer;
   }
   

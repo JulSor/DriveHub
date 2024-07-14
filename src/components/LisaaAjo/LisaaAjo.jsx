@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './LisaaAjo.css';
 
 const LisaaAjo = ({ lisaaAjo }) => {
+  const [tilausNro, setTilausNro] = useState('');
   const [paivamaara, setPaivamaara] = useState('');
   const [tapahtumanTyyppi, setTapahtumanTyyppi] = useState('Ajo');
   const [kohde, setKohde] = useState('');
@@ -10,7 +11,8 @@ const LisaaAjo = ({ lisaaAjo }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    lisaaAjo(paivamaara, tapahtumanTyyppi, kohde, parseInt(kollienMaara), lisaTiedot);
+    lisaaAjo(tilausNro, paivamaara, tapahtumanTyyppi, kohde, parseInt(kollienMaara), lisaTiedot);
+    setTilausNro('');
     setPaivamaara('');
     setTapahtumanTyyppi('Ajo');
     setKohde('');
@@ -22,6 +24,16 @@ const LisaaAjo = ({ lisaaAjo }) => {
     <div className="lisaa-ajo-container">
       <h2>Lisää Ajo</h2>
       <form onSubmit={handleSubmit} className="lisaa-ajo-form">
+      <div className="form-group">
+          <label htmlFor="tilausNro">Tilausnumero:</label>
+          <input
+            type="text"
+            id="tilausNro"
+            value={tilausNro}
+            onChange={(e) => setTilausNro(e.target.value)}
+            required
+          />
+        </div>
         <div className="form-group">
           <label htmlFor="paivamaara">Päivämäärä:</label>
           <input
