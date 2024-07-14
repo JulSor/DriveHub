@@ -10,7 +10,11 @@ const LisaaAjo = ({ lisaaAjo }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    lisaaAjo(paivamaara, tapahtumanTyyppi, kohde, parseInt(kollienMaara), lisaTiedot);
+    if (tapahtumanTyyppi === 'Tankkaus') {
+      lisaaAjo(paivamaara, tapahtumanTyyppi, parseInt(kohde), parseInt(kollienMaara), lisaTiedot);
+    } else {
+      lisaaAjo(paivamaara, tapahtumanTyyppi, kohde, parseInt(kollienMaara), lisaTiedot);
+    }
     setPaivamaara('');
     setTapahtumanTyyppi('Ajo');
     setKohde('');

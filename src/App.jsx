@@ -8,6 +8,7 @@ import LisaaAjo from './components/LisaaAjo/LisaaAjo.jsx';
 import Ajot from './components/Ajot'; // tuo ajotiedot
 import NoPage from './components/NoPage';
 import TopBar from './components/YlaPalkki/TopBar.jsx';
+import Tankkaukset from './components/Tankkaukset/Tankkaukset.jsx';
 import './App.css';
 
 const App = () => {
@@ -38,16 +39,20 @@ const App = () => {
     setFilteredAjot(updatedAjot);
   };
 
+  const filteredAjotWithoutTankkaus = filteredAjot.filter(ajo => ajo.tapahtumanTyyppi !== 'Tankkaus');
+  const tankkausAjot = filteredAjot.filter(ajo => ajo.tapahtumanTyyppi === 'Tankkaus');
+
   return (
     <Router>
       <div className="container">
         <TopBar ajot={ajot} setFilteredAjot={setFilteredAjot} />
         {/* <PageButtons /> */}
         <Routes>
-          <Route path="/" element={<KaikkiAjot ajot={filteredAjot} muutaStatus={muutaStatus} />} />
-          <Route path="/ei-aloitetut" element={<EiAloitetutAjot ajot={filteredAjot.filter(ajo => ajo.status === 'Ei aloitettu')} muutaStatus={muutaStatus} />} />
-          <Route path="/aloitetut" element={<AloitetutAjot ajot={filteredAjot.filter(ajo => ajo.status === 'Aloitettu')} muutaStatus={muutaStatus} />} />
-          <Route path="/suoritetut" element={<SuoritetutAjot ajot={filteredAjot.filter(ajo => ajo.status === 'Suoritettu')} />} />
+          <Route path="/" element={<KaikkiAjot ajot={filteredAjotWithoutTankkaus} muutaStatus={muutaStatus} />} />
+          <Route path="/ei-aloitetut" element={<EiAloitetutAjot ajot={filteredAjotWithoutTankkaus.filter(ajo => ajo.status === 'Ei aloitettu')} muutaStatus={muutaStatus} />} />
+          <Route path="/aloitetut" element={<AloitetutAjot ajot={filteredAjotWithoutTankkaus.filter(ajo => ajo.status === 'Aloitettu')} muutaStatus={muutaStatus} />} />
+          <Route path="/suoritetut" element={<SuoritetutAjot ajot={filteredAjotWithoutTankkaus.filter(ajo => ajo.status === 'Suoritettu')} />} />
+          <Route path="/tankkaukset" element={<Tankkaukset ajot={tankkausAjot} muutaStatus={muutaStatus} />} />
           <Route path="/lisaa-ajo" element={<LisaaAjo lisaaAjo={lisaaAjo} />} />
           <Route path="*" element={<NoPage />} />
         </Routes>

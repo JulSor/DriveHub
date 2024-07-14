@@ -1,35 +1,37 @@
 import React from 'react';
-import './KaikkiAjot.css';
+import '../KaikkiAjot/KaikkiAjot.css';
 
-const KaikkiAjot = ({ ajot, muutaStatus }) => {
-    const getStatusClass = (buttonStatus, ajoStatus) => {
-      if (buttonStatus === ajoStatus) {
-        switch (buttonStatus) {
-          case 'Aloitettu':
-            return 'action-button started';
-          case 'Suoritettu':
-            return 'action-button completed';
-          default:
-            return 'action-button not-started';
-        }
+const Tankkaukset = ({ ajot, muutaStatus }) => {
+  const getStatusClass = (buttonStatus, ajoStatus) => {
+    if (buttonStatus === ajoStatus) {
+      switch (buttonStatus) {
+        case 'Aloitettu':
+          return 'action-button started';
+        case 'Suoritettu':
+          return 'action-button completed';
+        default:
+          return 'action-button not-started';
       }
-      return 'action-button';
-    };
+    }
+    return 'action-button';
+  };
+
+  const tankkausAjot = ajot.filter(ajo => ajo.tapahtumanTyyppi === 'Tankkaus');
 
   return (
     <div className='kaikki-ajot-container'>
-      <h1>Kaikki Ajot</h1>
+      <h1>Tankkaukset</h1>
       <ul className='ajo-list'>
-        {ajot.map((ajo) => (
+        {tankkausAjot.map((ajo) => (
           <li className='ajo-item' key={ajo.id}>
             <div className='ajo-info'>
               <span className='nimi'>{ajo.nimi}</span>
               <span className='paivamaara'><strong>Päivämäärä:</strong> {ajo.paivamaara}</span>
               <span className='tapahtumanTyyppi'><strong>Tapahtuma:</strong> {ajo.tapahtumanTyyppi}</span>
-              <span className='kohde'><strong>Kohde:</strong> {ajo.kohde}</span>
-              <span className='kollienMaara'><strong>Kollien määrä:</strong> {ajo.kollienMaara}</span>
+              <span className='kohde'><strong>Kilometrit:</strong> {ajo.kohde}</span>
+              <span className='kollienMaara'><strong>Polttoaineen määrä:</strong> {ajo.kollienMaara + "L"}</span>
               <span className='lisaTiedot'><strong>Lisätietoja:</strong> {ajo.lisaTiedot}</span>
-              <span className='status'> {ajo.status}</span>
+              <span className='status'>{ajo.status}</span>
             </div>
             <div className='ajo-actions'>
               <button className={getStatusClass('Ei aloitettu', ajo.status)} onClick={() => muutaStatus(ajo.id, 'Ei aloitettu')}>Ei aloitettu</button>
@@ -43,4 +45,4 @@ const KaikkiAjot = ({ ajot, muutaStatus }) => {
   );
 };
 
-export default KaikkiAjot;
+export default Tankkaukset;

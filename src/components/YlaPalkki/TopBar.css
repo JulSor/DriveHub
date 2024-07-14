@@ -13,18 +13,38 @@
     display: flex;
     align-items: center;
     width: 100%;
+    justify-content: space-between;
   }
-  
-  .hamburger-menu {
-    font-size: 26px;
-    cursor: pointer;
+
+  .topBar-content-left {
+    display: flex;
+    align-items: center;
   }
+
+  .topBar-content-right {
+    display: flex;
+    align-items: center;
+  }
+
   .add-button {
     font-size: 40px;
     font-weight: bolder;
     text-decoration: none;
     color: #ffffff;
     margin-right: 10px;
+    border: 1px solid black;
+  }
+
+  .search-input {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .hamburger-menu {
+    font-size: 26px;
+    cursor: pointer;
   }
   
   .menu {
@@ -52,10 +72,4 @@
   
   .menu a:hover {
     background-color: #0056b3;
-  }
-  .search-input {
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
   }
