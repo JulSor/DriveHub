@@ -1,5 +1,6 @@
-// Tuodaan Firebase-sovelluksen alustusfunktio
-import { initializeApp } from 'firebase/app'
+// firebase.js
+import { initializeApp } from "firebase/app";
+import { getFirestore } from "firebase/firestore";
 
 // Määritellään sovelluksen Firebase-asetukset
 const firebaseConfig = {
@@ -11,7 +12,7 @@ const firebaseConfig = {
   appId: import.meta.env.VITE_FIREBASE_APPID
 }
 
-// Alustetaan Firebase-sovellus
-const firebase = initializeApp(firebaseConfig)
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
 
-export default firebase
+export { db };
