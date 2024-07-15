@@ -15,7 +15,7 @@ const EiAloitetutAjot = ({ ajot, muutaStatus }) => {
   
   return (
     <div className='kaikki-ajot-container'>
-      <h1>Ei Aloitetut Ajot</h1>
+      <h1>Kerättävät</h1>
       <ul className='ajo-list'>
         {ajot.map((ajo) => (
           <li className='ajo-item' key={ajo.id}>
@@ -29,7 +29,7 @@ const EiAloitetutAjot = ({ ajot, muutaStatus }) => {
               <span className='status'> {ajo.status}</span>
             </div>
             <div className='ajo-actions'>
-              <button className='action-button started' onClick={() => muutaStatus(ajo.id, 'Aloitettu')}>Merkitse aloitetuksi</button>
+              <button className='action-button started' onClick={() => muutaStatus(ajo.id, 'Aloitettu')}>Merkitse kerätyksi</button>
             </div>
           </li>
         ))}

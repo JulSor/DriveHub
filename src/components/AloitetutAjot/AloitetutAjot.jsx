@@ -14,7 +14,7 @@ const AloitetutAjot = ({ ajot, muutaStatus }) => {
   
   return (
     <div className='kaikki-ajot-container'>
-      <h1>Aloitetut Ajot</h1>
+      <h1>Kerätty</h1>
       <ul className='ajo-list'>
         {ajot.map((ajo) => (
           <li className='ajo-item' key={ajo.id}>
@@ -28,7 +28,7 @@ const AloitetutAjot = ({ ajot, muutaStatus }) => {
               <span className='status'> {ajo.status}</span>
             </div>
             <div className='ajo-actions'>
-              <button className='action-button completed' onClick={() => muutaStatus(ajo.id, 'Suoritettu')}>Merkitse suoritetuksi</button>
+              <button className='action-button completed' onClick={() => muutaStatus(ajo.id, 'Suoritettu')}>Merkitse toimitetuksi</button>
             </div>
           </li>
         ))}

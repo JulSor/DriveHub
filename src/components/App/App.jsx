@@ -13,11 +13,17 @@ import Login from '../Login'; // Tuo Login-komponentti
 import { auth, db } from '../../firebase.js'; // Tuo auth Firebase:sta
 import { collection, getDocs, addDoc, updateDoc, doc } from 'firebase/firestore';
 import './App.css';
+import TapahtumanMuokkaus from '../TapahtumanMuokkaus/TapahtumanMuokkaus.jsx'; // Muutettu komponentin nimi
 
+//Kaikki ajot = Kaikki Tilaukset
+//Ei aloitetut = Kerättävät
+//Aloitetut = Kerätty
+//Suoritetut = Toimitetut
 const App = () => {
   const [ajot, setAjot] = useState([]);
   const [filteredAjot, setFilteredAjot] = useState([]);
   const [user, setUser] = useState(null);
+  const [muokattavaAjo, setMuokattavaAjo] = useState(null); // Lisää muokattava ajo
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -78,21 +84,58 @@ const App = () => {
     }
   };
 
+  const paivitaAjo = async (paivitettyAjo) => { // Lisää päivitä ajo funktio
+    const ajoDocRef = doc(db, 'ajot', paivitettyAjo.id);
+    try {
+      await updateDoc(ajoDocRef, paivitettyAjo);
+      const updatedAjot = ajot.map(ajo =>
+        ajo.id === paivitettyAjo.id ? paivitettyAjo : ajo
+      );
+      setAjot(updatedAjot);
+      setFilteredAjot(updatedAjot);
+    } catch (e) {
+      console.error('Error updating document: ', e);
+    }
+  };
+
+  const aloitaMuokkaus = (ajo) => { // Lisää aloita muokkaus funktio
+    setMuokattavaAjo(ajo);
+  };
+
+  const peruutaMuokkaus = () => { // Lisää peruuta muokkaus funktio
+    setMuokattavaAjo(null);
+  };
+
   const filteredAjotWithoutTankkaus = filteredAjot.filter(ajo => ajo.tapahtumanTyyppi !== 'Tankkaus');
   const tankkausAjot = filteredAjot.filter(ajo => ajo.tapahtumanTyyppi === 'Tankkaus');
 
   return (
     <Router>
-            <div className="container">
+      <div className="container">
         {user ? (
           <>
             <TopBar ajot={ajot} setFilteredAjot={setFilteredAjot} />
             <Routes>
-              <Route path="/" element={<KaikkiAjot ajot={filteredAjotWithoutTankkaus} muutaStatus={muutaStatus} />} />
-              <Route path="/ei-aloitetut" element={<EiAloitetutAjot ajot={filteredAjotWithoutTankkaus.filter(ajo => ajo.status === 'Ei aloitettu')} muutaStatus={muutaStatus} />} />
-              <Route path="/aloitetut" element={<AloitetutAjot ajot={filteredAjotWithoutTankkaus.filter(ajo => ajo.status === 'Aloitettu')} muutaStatus={muutaStatus} />} />
-              <Route path="/suoritetut" element={<SuoritetutAjot ajot={filteredAjotWithoutTankkaus.filter(ajo => ajo.status === 'Suoritettu')} />} />
-              <Route path="/tankkaukset" element={<Tankkaukset ajot={tankkausAjot} muutaStatus={muutaStatus} />} />
+              <Route path="/" element={
+                muokattavaAjo ? (
+                  <TapahtumanMuokkaus
+                    ajo={muokattavaAjo}
+                    paivitaAjo={paivitaAjo}
+                    peruutaMuokkaus={peruutaMuokkaus}
+                  />
+                ) : (
+                  <KaikkiAjot
+                    ajot={filteredAjotWithoutTankkaus}
+                    muutaStatus={muutaStatus}
+                    aloitaMuokkaus={aloitaMuokkaus} // Lisää aloita muokkaus propsi
+                    paivitaAjo={paivitaAjo} // Lisää paivitaAjo propsi
+                  />
+                )
+              } />
+              <Route path="/ei-aloitetut" element={<EiAloitetutAjot ajot={filteredAjotWithoutTankkaus.filter(ajo => ajo.status === 'Ei aloitettu')} muutaStatus={muutaStatus} aloitaMuokkaus={aloitaMuokkaus} paivitaAjo={paivitaAjo} />} />
+              <Route path="/aloitetut" element={<AloitetutAjot ajot={filteredAjotWithoutTankkaus.filter(ajo => ajo.status === 'Aloitettu')} muutaStatus={muutaStatus} aloitaMuokkaus={aloitaMuokkaus} paivitaAjo={paivitaAjo} />} />
+              <Route path="/suoritetut" element={<SuoritetutAjot ajot={filteredAjotWithoutTankkaus.filter(ajo => ajo.status === 'Suoritettu')} aloitaMuokkaus={aloitaMuokkaus} paivitaAjo={paivitaAjo} />} />
+              <Route path="/tankkaukset" element={<Tankkaukset ajot={tankkausAjot} muutaStatus={muutaStatus} aloitaMuokkaus={aloitaMuokkaus} paivitaAjo={paivitaAjo} />} />
               <Route path="/lisaa-ajo" element={<LisaaAjo lisaaAjo={lisaaAjo} />} />
               <Route path="*" element={<NoPage />} />
             </Routes>
@@ -106,54 +149,3 @@ const App = () => {
 };
 
 export default App;
-
-// const App = () => {
-//   const [ajot, setAjot] = useState(Ajot);
-//   const [filteredAjot, setFilteredAjot] = useState(ajot);
-
-//   const lisaaAjo = (paivamaara, tapahtumanTyyppi, kohde, kollienMaara, lisaTiedot) => {
-//     const uusiAjo = {
-//       id: ajot.length + 1,
-//       nimi: `${tapahtumanTyyppi} ${ajot.length + 1}`,
-//       paivamaara,
-//       tapahtumanTyyppi,
-//       kohde,
-//       kollienMaara,
-//       lisaTiedot,
-//       status: 'Ei aloitettu'
-//     };
-//     const updatedAjot = [...ajot, uusiAjo];
-//     setAjot(updatedAjot);
-//     setFilteredAjot(updatedAjot);
-//   };
-
-//   const muutaStatus = (id, uusiStatus) => {
-//     const updatedAjot = ajot.map((ajo) =>
-//       ajo.id === id ? { ...ajo, status: uusiStatus } : ajo
-//     );
-//     setAjot(updatedAjot);
-//     setFilteredAjot(updatedAjot);
-//   };
-
-//   const filteredAjotWithoutTankkaus = filteredAjot.filter(ajo => ajo.tapahtumanTyyppi !== 'Tankkaus');
-//   const tankkausAjot = filteredAjot.filter(ajo => ajo.tapahtumanTyyppi === 'Tankkaus');
-
-//   return (
-//     <Router>
-//       <div className="container">
-//         <TopBar ajot={ajot} setFilteredAjot={setFilteredAjot} />
-//         {/* <PageButtons /> */}
-//         <Routes>
-//           <Route path="/" element={<KaikkiAjot ajot={filteredAjotWithoutTankkaus} muutaStatus={muutaStatus} />} />
-//           <Route path="/ei-aloitetut" element={<EiAloitetutAjot ajot={filteredAjotWithoutTankkaus.filter(ajo => ajo.status === 'Ei aloitettu')} muutaStatus={muutaStatus} />} />
-//           <Route path="/aloitetut" element={<AloitetutAjot ajot={filteredAjotWithoutTankkaus.filter(ajo => ajo.status === 'Aloitettu')} muutaStatus={muutaStatus} />} />
-//           <Route path="/suoritetut" element={<SuoritetutAjot ajot={filteredAjotWithoutTankkaus.filter(ajo => ajo.status === 'Suoritettu')} />} />
-//           <Route path="/tankkaukset" element={<Tankkaukset ajot={tankkausAjot} muutaStatus={muutaStatus} />} />
-//           <Route path="/lisaa-ajo" element={<LisaaAjo lisaaAjo={lisaaAjo} />} />
-//           <Route path="*" element={<NoPage />} />
-//         </Routes>
-//       </div>
-//     </Router>
-//   );
-// };
-// export default App;

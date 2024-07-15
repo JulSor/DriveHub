@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import './LisaaAjo.css';
+import React, { useState, useEffect } from 'react';
+import './TapahtumanMuokkaus.css';
 
-const LisaaAjo = ({ lisaaAjo }) => {
+const TapahtumanMuokkaus = ({ ajo, paivitaAjo, peruutaMuokkaus }) => {
   const [tilausNro, setTilausNro] = useState('');
   const [paivamaara, setPaivamaara] = useState('');
   const [tapahtumanTyyppi, setTapahtumanTyyppi] = useState('Ajo');
@@ -9,22 +9,35 @@ const LisaaAjo = ({ lisaaAjo }) => {
   const [kollienMaara, setKollienMaara] = useState('');
   const [lisaTiedot, setLisaTiedot] = useState('');
 
+  useEffect(() => {
+    if (ajo) {
+      setTilausNro(ajo.tilausNro);
+      setPaivamaara(ajo.paivamaara);
+      setTapahtumanTyyppi(ajo.tapahtumanTyyppi);
+      setKohde(ajo.kohde);
+      setKollienMaara(ajo.kollienMaara);
+      setLisaTiedot(ajo.lisaTiedot);
+    }
+  }, [ajo]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    lisaaAjo(tilausNro, paivamaara, tapahtumanTyyppi, kohde, parseInt(kollienMaara), lisaTiedot);
-    setTilausNro('');
-    setPaivamaara('');
-    setTapahtumanTyyppi('Ajo');
-    setKohde('');
-    setKollienMaara('');
-    setLisaTiedot('');
+    paivitaAjo({
+      ...ajo,
+      tilausNro,
+      paivamaara,
+      tapahtumanTyyppi,
+      kohde,
+      kollienMaara: parseInt(kollienMaara),
+      lisaTiedot,
+    });
   };
 
   return (
-    <div className="lisaa-ajo-container">
-      <h2>Lisää Tilaus</h2>
-      <form onSubmit={handleSubmit} className="lisaa-ajo-form">
-      <div className="form-group">
+    <div className="edit-ajo-container">
+      <h2>Muokkaa Ajoa</h2>
+      <form onSubmit={handleSubmit} className="edit-ajo-form">
+        <div className="form-group">
           <label htmlFor="tilausNro">Tilausnumero:</label>
           <input
             type="text"
@@ -112,10 +125,11 @@ const LisaaAjo = ({ lisaaAjo }) => {
             onChange={(e) => setLisaTiedot(e.target.value)}
           />
         </div>
-        <button type="submit" className="submit-button">Lisää Ajo</button>
+        <button type="submit" className="update-button">Päivitä Ajo</button>
+        <button type="button" className="cancel-button" onClick={peruutaMuokkaus}>Peruuta</button>
       </form>
     </div>
   );
 };
 
-export default LisaaAjo;
+export default TapahtumanMuokkaus;

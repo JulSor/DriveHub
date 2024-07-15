@@ -15,7 +15,7 @@ const SuoritetutAjot = ({ ajot }) => {
   
   return (
     <div className='kaikki-ajot-container'>
-      <h1>Suoritetut Ajot</h1>
+      <h1>Toimitetut</h1>
       <ul className='ajo-list'>
         {ajot.map((ajo) => (
           <li className='ajo-item' key={ajo.id}>
@@ -28,7 +28,7 @@ const SuoritetutAjot = ({ ajot }) => {
               <span className='lisaTiedot'><strong>Lisätietoja:</strong> {ajo.lisaTiedot}</span>
               <span className='status'> {ajo.status}</span>
             </div><div className='ajo-actions'>
-              <button disabled className='action-button completed-disabled'>Suoritettu</button>
+              <button disabled className='action-button completed-disabled'>Toimitettu</button>
             </div>
           </li>
         ))}
