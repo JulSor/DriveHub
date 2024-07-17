@@ -93,8 +93,8 @@ const KaikkiAjot = ({ ajot, muutaStatus, paivitaAjo, poistaAjo }) => {
               {varmistusAjo && varmistusAjo.id === ajo.id && (
                 <div className='varmistusikkuna'>
                   <p>Poistetaanko tilaus?</p>
-                  <button onClick={vahvistaPoisto}>Ok</button>
-                  <button onClick={peruutaPoisto}>Peruuta</button>
+                  <button className='confirm-button' onClick={vahvistaPoisto}>Ok</button>
+                  <button className='cancel-button' onClick={peruutaPoisto}>Peruuta</button>
                 </div>
               )}
             </li>

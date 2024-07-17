@@ -4,6 +4,8 @@ import TapahtumanMuokkaus from '../TapahtumanMuokkaus/TapahtumanMuokkaus';
 
 const Tankkaukset = ({ ajot, poistaAjo, paivitaAjo  }) => {
   const [muokattavaAjo, setMuokattavaAjo] = useState(null);
+  const [varmistusAjo, setVarmistusAjo] = useState(null);
+
 
   
   const formatPaivamaara = (dateStr) => {
@@ -27,6 +29,13 @@ const Tankkaukset = ({ ajot, poistaAjo, paivitaAjo  }) => {
   const handlePaivitaAjo = (paivitettyAjo) => {
     paivitaAjo(paivitettyAjo);
     setMuokattavaAjo(null);
+  };
+  const vahvistaPoisto = (ajoId) => {
+    setVarmistusAjo(ajoId);
+  };
+  
+  const peruutaPoisto = () => {
+    setVarmistusAjo(null);
   };
 
   const tankkausAjot = ajot.filter(ajo => ajo.tapahtumanTyyppi === 'Tankkaus');
@@ -56,8 +65,14 @@ const Tankkaukset = ({ ajot, poistaAjo, paivitaAjo  }) => {
                 <button className='action-button completed'>Suoritettu</button>
               <div className='editAndDelete'>
                 <button className="update-button-on-list" onClick={() => aloitaMuokkaus(ajo)}>Muokkaa</button>
-                <button className="delete-button" onClick={() => poistaAjo(ajo.id)}>Poista</button>
-              </div>
+                <button className="delete-button" onClick={() => vahvistaPoisto(ajo.id)}>Poista</button>
+                  {varmistusAjo === ajo.id && (
+                    <div className='varmistusikkuna'>
+                      <p>Poistetaanko tilaus?</p>
+                      <button className='confirm-button' onClick={() => { poistaAjo(ajo.id); setVarmistusAjo(null); }}>Ok</button>
+                      <button className='cancel-button' onClick={peruutaPoisto}>Peruuta</button>
+                    </div>
+                  )}              </div>
               </div>
             </li>
           ))}
