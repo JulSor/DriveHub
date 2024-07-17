@@ -28,7 +28,7 @@ const AloitetutAjot = ({ ajot, muutaStatus }) => {
               <span className='status'> {ajo.status}</span>
             </div>
             <div className='ajo-actions'>
-              <button className='action-button completed' onClick={() => muutaStatus(ajo.id, 'Suoritettu')}>Merkitse toimitetuksi</button>
+              <button className='action-button completed' onClick={() => muutaStatus(ajo.id, 'Toimitettu')}>Merkitse toimitetuksi</button>
             </div>
           </li>
         ))}

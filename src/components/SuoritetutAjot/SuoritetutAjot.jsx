@@ -3,7 +3,6 @@ import '../KaikkiAjot/KaikkiAjot.css';
 
 const SuoritetutAjot = ({ ajot }) => {
 
-  
   const formatPaivamaara = (dateStr) => {
     const date = new Date(dateStr);
     return date.toLocaleDateString('fi-FI', {

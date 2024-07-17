@@ -29,7 +29,7 @@ const EiAloitetutAjot = ({ ajot, muutaStatus }) => {
               <span className='status'> {ajo.status}</span>
             </div>
             <div className='ajo-actions'>
-              <button className='action-button started' onClick={() => muutaStatus(ajo.id, 'Aloitettu')}>Merkitse kerätyksi</button>
+              <button className='action-button started' onClick={() => muutaStatus(ajo.id, 'Keratty')}>Merkitse kerätyksi</button>
             </div>
           </li>
         ))}

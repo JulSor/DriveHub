@@ -87,4 +87,9 @@
   .action-button.completed-disabled {
     background-color: #535353;
   }
+  .editAndDelete {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
   

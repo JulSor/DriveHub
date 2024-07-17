@@ -2,15 +2,25 @@ import React, { useState } from 'react';
 import './KaikkiAjot.css';
 import TapahtumanMuokkaus from '../TapahtumanMuokkaus/TapahtumanMuokkaus';
 
-const KaikkiAjot = ({ ajot, muutaStatus, paivitaAjo }) => {
+const KaikkiAjot = ({ ajot, muutaStatus, paivitaAjo, poistaAjo }) => {
   const [muokattavaAjo, setMuokattavaAjo] = useState(null);
+
+  const formatPaivamaara = (dateStr) => {
+
+    const date = new Date(dateStr);
+    return date.toLocaleDateString('fi-FI', {
+      day: '2-digit',
+      month: '2-digit',
+      year: '2-digit',
+    });
+  };
 
   const getStatusClass = (buttonStatus, ajoStatus) => {
     if (buttonStatus === ajoStatus) {
       switch (buttonStatus) {
-        case 'Aloitettu':
+        case 'Keratty':
           return 'action-button started';
-        case 'Suoritettu':
+        case 'Toimitettu':
           return 'action-button completed';
         default:
           return 'action-button not-started';
@@ -32,6 +42,7 @@ const KaikkiAjot = ({ ajot, muutaStatus, paivitaAjo }) => {
     setMuokattavaAjo(null);
   };
 
+
   return (
     <div className='kaikki-ajot-container'>
       <h1>Kaikki tilaukset</h1>
@@ -48,7 +59,7 @@ const KaikkiAjot = ({ ajot, muutaStatus, paivitaAjo }) => {
               <div className='ajo-info'>
                 <span className='nimi'>{ajo.nimi}</span>
                 <span className='tilausNro'><strong>Tilausnumero:</strong> {ajo.tilausNro}</span>
-                <span className='paivamaara'><strong>Päivämäärä:</strong> {ajo.paivamaara}</span>
+                <span className='paivamaara'><strong>Päivämäärä:</strong> {formatPaivamaara(ajo.paivamaara)}</span>
                 <span className='kohde'><strong>Kohde:</strong> {ajo.kohde}</span>
                 <span className='kollienMaara'><strong>Kollien määrä:</strong> {ajo.kollienMaara}</span>
                 <span className='lisaTiedot'><strong>Lisätietoja:</strong> {ajo.lisaTiedot}</span>
@@ -56,9 +67,12 @@ const KaikkiAjot = ({ ajot, muutaStatus, paivitaAjo }) => {
               </div>
               <div className='ajo-actions'>
                 <button className={getStatusClass('Ei aloitettu', ajo.status)} onClick={() => muutaStatus(ajo.id, 'Ei aloitettu')}>Ei aloitettu</button>
-                <button className={getStatusClass('Aloitettu', ajo.status)} onClick={() => muutaStatus(ajo.id, 'Kerätty')}>Kerätty</button>
-                <button className={getStatusClass('Suoritettu', ajo.status)} onClick={() => muutaStatus(ajo.id, 'Toimitettu')}>Toimitettu</button>
-                <button className="update-button-on-list" onClick={() => aloitaMuokkaus(ajo)}>Muokkaa tilausta</button>
+                <button className={getStatusClass('Keratty', ajo.status)} onClick={() => muutaStatus(ajo.id, 'Keratty')}>Kerätty</button>
+                <button className={getStatusClass('Toimitettu', ajo.status)} onClick={() => muutaStatus(ajo.id, 'Toimitettu')}>Toimitettu</button>
+              <div className='editAndDelete'>
+                  <button className="update-button-on-list" onClick={() => aloitaMuokkaus(ajo)}>Muokkaa tilausta</button>
+                  <button className="delete-button" onClick={() => poistaAjo(ajo.id)}>Poista</button> {/* Lisää poista nappi */}
+              </div>
               </div>
             </li>
           ))}

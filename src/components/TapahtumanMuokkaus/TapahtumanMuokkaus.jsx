@@ -125,9 +125,11 @@ const TapahtumanMuokkaus = ({ ajo, paivitaAjo, peruutaMuokkaus }) => {
             onChange={(e) => setLisaTiedot(e.target.value)}
           />
         </div>
-        <button type="submit" className="update-button">Päivitä Ajo</button>
-        <button type="button" className="cancel-button" onClick={peruutaMuokkaus}>Peruuta</button>
-      </form>
+        <div className='editAndDelete'>
+          <button type="submit" className="update-button">Päivitä Ajo</button>
+          <button type="button" className="cancel-button" onClick={peruutaMuokkaus}>Peruuta</button>
+        </div>
+        </form>
     </div>
   );
 };

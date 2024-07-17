@@ -87,8 +87,8 @@ const TopBar = ({ ajot, setFilteredAjot }) => {
         <div className={`menu ${menuOpen ? 'open' : ''}`}>
           <Link to="/" onClick={() => setMenuOpen(false)}>Kaikki tilaukset</Link>
           <Link to="/ei-aloitetut" onClick={() => setMenuOpen(false)}>Kerättävät</Link>
-          <Link to="/aloitetut" onClick={() => setMenuOpen(false)}>Kerätyt</Link>
-          <Link to="/suoritetut" onClick={() => setMenuOpen(false)}>Toimitetut</Link>
+          <Link to="/keratyt" onClick={() => setMenuOpen(false)}>Kerätyt</Link>
+          <Link to="/toimitetut" onClick={() => setMenuOpen(false)}>Toimitetut</Link>
           <Link to="/tankkaukset" onClick={() => setMenuOpen(false)}>Tankkaukset</Link>
         </div>
         <div className="topBar-content-right">
