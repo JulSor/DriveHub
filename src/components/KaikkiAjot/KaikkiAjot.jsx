@@ -4,6 +4,8 @@ import TapahtumanMuokkaus from '../TapahtumanMuokkaus/TapahtumanMuokkaus';
 
 const KaikkiAjot = ({ ajot, muutaStatus, paivitaAjo, poistaAjo }) => {
   const [muokattavaAjo, setMuokattavaAjo] = useState(null);
+  const [varmistusAjo, setVarmistusAjo] = useState(null);
+
 
   const formatPaivamaara = (dateStr) => {
 
@@ -42,7 +44,21 @@ const KaikkiAjot = ({ ajot, muutaStatus, paivitaAjo, poistaAjo }) => {
     setMuokattavaAjo(null);
   };
 
+  const handleVarmistusPoisto = (ajo) => {
+    setVarmistusAjo(ajo);
+  };
 
+  const peruutaPoisto = () => {
+    setVarmistusAjo(null);
+  };
+
+  const vahvistaPoisto = () => {
+    if (varmistusAjo) {
+      poistaAjo(varmistusAjo.id);
+      setVarmistusAjo(null);
+    }
+  };
+  
   return (
     <div className='kaikki-ajot-container'>
       <h1>Kaikki tilaukset</h1>
@@ -69,11 +85,18 @@ const KaikkiAjot = ({ ajot, muutaStatus, paivitaAjo, poistaAjo }) => {
                 <button className={getStatusClass('Ei aloitettu', ajo.status)} onClick={() => muutaStatus(ajo.id, 'Ei aloitettu')}>Ei aloitettu</button>
                 <button className={getStatusClass('Keratty', ajo.status)} onClick={() => muutaStatus(ajo.id, 'Keratty')}>Kerätty</button>
                 <button className={getStatusClass('Toimitettu', ajo.status)} onClick={() => muutaStatus(ajo.id, 'Toimitettu')}>Toimitettu</button>
-              <div className='editAndDelete'>
+                <div className='editAndDelete'>
                   <button className="update-button-on-list" onClick={() => aloitaMuokkaus(ajo)}>Muokkaa tilausta</button>
-                  <button className="delete-button" onClick={() => poistaAjo(ajo.id)}>Poista</button> {/* Lisää poista nappi */}
+                  <button className="delete-button" onClick={() => handleVarmistusPoisto(ajo)}>Poista</button>
+                </div>
               </div>
-              </div>
+              {varmistusAjo && varmistusAjo.id === ajo.id && (
+                <div className='varmistusikkuna'>
+                  <p>Poistetaanko tilaus?</p>
+                  <button onClick={vahvistaPoisto}>Ok</button>
+                  <button onClick={peruutaPoisto}>Peruuta</button>
+                </div>
+              )}
             </li>
           ))}
         </ul>
