@@ -5,10 +5,10 @@ import TapahtumanMuokkaus from '../TapahtumanMuokkaus/TapahtumanMuokkaus';
 const KaikkiAjot = ({ ajot, muutaStatus, paivitaAjo, poistaAjo }) => {
   const [muokattavaAjo, setMuokattavaAjo] = useState(null);
   const [varmistusAjo, setVarmistusAjo] = useState(null);
-
+  const [avattuAjoId, setAvattuAjoId] = useState(null);
+  const [statusNappiAvoinna, setStatusNappiAvoinna] = useState(null);
 
   const formatPaivamaara = (dateStr) => {
-
     const date = new Date(dateStr);
     return date.toLocaleDateString('fi-FI', {
       day: '2-digit',
@@ -58,7 +58,23 @@ const KaikkiAjot = ({ ajot, muutaStatus, paivitaAjo, poistaAjo }) => {
       setVarmistusAjo(null);
     }
   };
-  
+
+  const toggleAjoDetails = (ajoId) => {
+    if (avattuAjoId === ajoId) {
+      setAvattuAjoId(null);
+    } else {
+      setAvattuAjoId(ajoId);
+    }
+  };
+
+  const toggleStatusButtons = (ajoId) => {
+    if (statusNappiAvoinna === ajoId) {
+      setStatusNappiAvoinna(null);
+    } else {
+      setStatusNappiAvoinna(ajoId);
+    }
+  };
+
   return (
     <div className='kaikki-ajot-container'>
       <h1>Kaikki tilaukset</h1>
@@ -71,30 +87,40 @@ const KaikkiAjot = ({ ajot, muutaStatus, paivitaAjo, poistaAjo }) => {
       ) : (
         <ul className='ajo-list'>
           {ajot.map((ajo) => (
-            <li className='ajo-item' key={ajo.id}>
+            <li className={`ajo-item ${avattuAjoId === ajo.id ? 'open' : ''}`} key={ajo.id} onClick={() => toggleAjoDetails(ajo.id)}>
               <div className='ajo-info'>
                 <span className='nimi'>{ajo.nimi}</span>
                 <span className='tilausNro'><strong>Tilausnumero:</strong> {ajo.tilausNro}</span>
                 <span className='paivamaara'><strong>Päivämäärä:</strong> {formatPaivamaara(ajo.paivamaara)}</span>
                 <span className='kohde'><strong>Kohde:</strong> {ajo.kohde}</span>
-                <span className='kollienMaara'><strong>Kollien määrä:</strong> {ajo.kollienMaara}</span>
-                <span className='lisaTiedot'><strong>Lisätietoja:</strong> {ajo.lisaTiedot}</span>
                 <span className='status'> {ajo.status}</span>
               </div>
-              <div className='ajo-actions'>
-                <button className={getStatusClass('Ei aloitettu', ajo.status)} onClick={() => muutaStatus(ajo.id, 'Ei aloitettu')}>Ei aloitettu</button>
-                <button className={getStatusClass('Keratty', ajo.status)} onClick={() => muutaStatus(ajo.id, 'Keratty')}>Kerätty</button>
-                <button className={getStatusClass('Toimitettu', ajo.status)} onClick={() => muutaStatus(ajo.id, 'Toimitettu')}>Toimitettu</button>
-                <div className='editAndDelete'>
-                  <button className="update-button-on-list" onClick={() => aloitaMuokkaus(ajo)}>Muokkaa tilausta</button>
-                  <button className="delete-button" onClick={() => handleVarmistusPoisto(ajo)}>Poista</button>
-                </div>
-              </div>
-              {varmistusAjo && varmistusAjo.id === ajo.id && (
-                <div className='varmistusikkuna'>
-                  <p>Poistetaanko tilaus?</p>
-                  <button className='confirm-button' onClick={vahvistaPoisto}>Ok</button>
-                  <button className='cancel-button' onClick={peruutaPoisto}>Peruuta</button>
+              {avattuAjoId === ajo.id && (
+                <div className='ajo-details'>
+                  <span className='kollienMaara'><strong>Kollien määrä:</strong> {ajo.kollienMaara}</span>
+                  <span className='lisaTiedot'><strong>Lisätietoja:</strong> {ajo.lisaTiedot}</span>
+                  <div className='ajo-actions'>
+                    {statusNappiAvoinna === ajo.id ? (
+                      <>
+                        <button className={getStatusClass('Ei aloitettu', ajo.status)} onClick={(e) => { e.stopPropagation(); muutaStatus(ajo.id, 'Ei aloitettu'); toggleStatusButtons(null); }}>Ei aloitettu</button>
+                        <button className={getStatusClass('Keratty', ajo.status)} onClick={(e) => { e.stopPropagation(); muutaStatus(ajo.id, 'Keratty'); toggleStatusButtons(null); }}>Kerätty</button>
+                        <button className={getStatusClass('Toimitettu', ajo.status)} onClick={(e) => { e.stopPropagation(); muutaStatus(ajo.id, 'Toimitettu'); toggleStatusButtons(null); }}>Toimitettu</button>
+                      </>
+                    ) : (
+                      <button className={getStatusClass(ajo.status, ajo.status)} onClick={(e) => { e.stopPropagation(); toggleStatusButtons(ajo.id); }}>{ajo.status}</button>
+                    )}
+                    <div className='editAndDelete'>
+                      <button className="update-button-on-list" onClick={(e) => { e.stopPropagation(); aloitaMuokkaus(ajo); }}>Muokkaa</button>
+                      <button className="delete-button" onClick={(e) => { e.stopPropagation(); handleVarmistusPoisto(ajo); }}>Poista</button>
+                    </div>
+                  </div>
+                  {varmistusAjo && varmistusAjo.id === ajo.id && (
+                    <div className='varmistusikkuna'>
+                      <p>Poistetaanko tilaus?</p>
+                      <button className='confirm-button' onClick={vahvistaPoisto}>Ok</button>
+                      <button className='cancel-button' onClick={peruutaPoisto}>Peruuta</button>
+                    </div>
+                  )}
                 </div>
               )}
             </li>
