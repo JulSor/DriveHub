@@ -6,6 +6,12 @@
     background-color: #f9f9f9;
   }
   
+  .updateAndDelete {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  
   .edit-ajo-form {
     display: flex;
     flex-direction: column;
@@ -31,34 +37,36 @@
   .cancel-button {
     padding: 10px;
     border: none;
-    border-radius: 5px;
     cursor: pointer;
-    margin-right: 10px;
+    width: 50%;
+    font-size: 16px;
+    margin: 20px;
+    color: white;
+    width: 50%;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
   }
   
   .update-button {
-    background-color: #28a745;
-    color: white;
+    background-color: #464646;
   }
   
   .cancel-button {
-    width: 50%;
     background-color: #dc3545;
-    margin: 20px;
-    color: white;
   }
   
   .update-button:hover {
-    background-color: #218838;
+    background-color: #313131;
   }
   
   .cancel-button:hover {
-    background-color: #c82333;
+    background-color: #be2030;
   }
 
 .update-button-on-list {
   width: 50%;
-  background-color: #464646; /* Green */
+  background-color: #464646;
   border: none;
   color: white;
   padding: 10px;
@@ -70,9 +78,13 @@
   margin-right: 3px;
   cursor: pointer;
 }
+
+.update-button-on-list:hover {
+  background-color: #313131;
+}
 .delete-button {
   width: 50%;
-  background-color: #464646; /* Red */
+  background-color: #dc3545;
   border: none;
   color: white;
   padding: 10px;
@@ -83,4 +95,7 @@
   margin-top: 5px;
   margin-right: 3px;
   cursor: pointer;
+}
+.delete-button:hover {
+  background-color: #be2030;
 }

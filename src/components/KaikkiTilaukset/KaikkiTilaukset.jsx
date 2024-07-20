@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import './KaikkiAjot.css';
+import './KaikkiTilaukset.css';
 import TapahtumanMuokkaus from '../TapahtumanMuokkaus/TapahtumanMuokkaus';
 
-const KaikkiAjot = ({ ajot, muutaStatus, paivitaAjo, poistaAjo }) => {
+const KaikkiTilaukset = ({ ajot, muutaStatus, paivitaAjo, poistaAjo }) => {
   const [muokattavaAjo, setMuokattavaAjo] = useState(null);
   const [varmistusAjo, setVarmistusAjo] = useState(null);
   const [avattuAjoId, setAvattuAjoId] = useState(null);
@@ -131,4 +131,4 @@ const KaikkiAjot = ({ ajot, muutaStatus, paivitaAjo, poistaAjo }) => {
   );
 };
 
-export default KaikkiAjot;
+export default KaikkiTilaukset;

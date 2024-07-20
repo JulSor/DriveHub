@@ -1,7 +1,7 @@
 import React from 'react';
-import '../KaikkiAjot/KaikkiAjot.css';
+import '../KaikkiTilaukset/KaikkiTilaukset.css';
 
-const AloitetutAjot = ({ ajot, muutaStatus }) => {
+const KeratytTilaukset = ({ ajot, muutaStatus }) => {
 
   const formatPaivamaara = (dateStr) => {
     const date = new Date(dateStr);
@@ -37,4 +37,4 @@ const AloitetutAjot = ({ ajot, muutaStatus }) => {
   );
 };
 
-export default AloitetutAjot;
+export default KeratytTilaukset;

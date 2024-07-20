@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../KaikkiAjot/KaikkiAjot.css';
+import '../KaikkiTilaukset/KaikkiTilaukset.css';
 import TapahtumanMuokkaus from '../TapahtumanMuokkaus/TapahtumanMuokkaus';
 
 const Tankkaukset = ({ ajot, poistaAjo, paivitaAjo  }) => {

@@ -1,9 +1,8 @@
 import React from 'react';
-import '../KaikkiAjot/KaikkiAjot.css';
+import '../KaikkiTilaukset/KaikkiTilaukset.css';
 
-const EiAloitetutAjot = ({ ajot, muutaStatus }) => {
+const ToimitetutTilaukset = ({ ajot }) => {
 
-  
   const formatPaivamaara = (dateStr) => {
     const date = new Date(dateStr);
     return date.toLocaleDateString('fi-FI', {
@@ -15,7 +14,7 @@ const EiAloitetutAjot = ({ ajot, muutaStatus }) => {
   
   return (
     <div className='kaikki-ajot-container'>
-      <h1>Kerättävät</h1>
+      <h1>Toimitetut</h1>
       <ul className='ajo-list'>
         {ajot.map((ajo) => (
           <li className='ajo-item' key={ajo.id}>
@@ -27,9 +26,8 @@ const EiAloitetutAjot = ({ ajot, muutaStatus }) => {
               <span className='kollienMaara'><strong>Kollien määrä:</strong> {ajo.kollienMaara}</span>
               <span className='lisaTiedot'><strong>Lisätietoja:</strong> {ajo.lisaTiedot}</span>
               <span className='status'> {ajo.status}</span>
-            </div>
-            <div className='ajo-actions'>
-              <button className='action-button started' onClick={() => muutaStatus(ajo.id, 'Keratty')}>Merkitse kerätyksi</button>
+            </div><div className='ajo-actions'>
+              <button disabled className='action-button completed-disabled'>Toimitettu</button>
             </div>
           </li>
         ))}
@@ -38,4 +36,4 @@ const EiAloitetutAjot = ({ ajot, muutaStatus }) => {
   );
 };
 
-export default EiAloitetutAjot;
+export default ToimitetutTilaukset;

@@ -35,7 +35,7 @@ const TapahtumanMuokkaus = ({ ajo, paivitaAjo, peruutaMuokkaus }) => {
 
   return (
     <div className="edit-ajo-container">
-      <h2>Muokkaa Ajoa</h2>
+      <h2>Muokkaa Tilausta</h2>
       <form onSubmit={handleSubmit} className="edit-ajo-form">
         <div className="form-group">
           <label htmlFor="tilausNro">Tilausnumero:</label>
@@ -125,8 +125,8 @@ const TapahtumanMuokkaus = ({ ajo, paivitaAjo, peruutaMuokkaus }) => {
             onChange={(e) => setLisaTiedot(e.target.value)}
           />
         </div>
-        <div className='editAndDelete'>
-          <button type="submit" className="update-button">Päivitä Ajo</button>
+        <div className='updateAndDelete'>
+          <button type="submit" className="update-button">Päivitä</button>
           <button type="button" className="cancel-button" onClick={peruutaMuokkaus}>Peruuta</button>
         </div>
         </form>

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import './LisaaAjo.css';
+import './LisaaTilaus.css';
 
-const LisaaAjo = ({ lisaaAjo }) => {
+const LisaaTilaus = ({ lisaaTilaus }) => {
   const [tilausNro, setTilausNro] = useState('');
   const [paivamaara, setPaivamaara] = useState('');
   const [tapahtumanTyyppi, setTapahtumanTyyppi] = useState('Ajo');
@@ -11,7 +11,7 @@ const LisaaAjo = ({ lisaaAjo }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    lisaaAjo(tilausNro, paivamaara, tapahtumanTyyppi, kohde, parseInt(kollienMaara), lisaTiedot);
+    lisaaTilaus(tilausNro, paivamaara, tapahtumanTyyppi, kohde, parseInt(kollienMaara), lisaTiedot);
     setTilausNro('');
     setPaivamaara('');
     setTapahtumanTyyppi('Ajo');
@@ -118,4 +118,4 @@ const LisaaAjo = ({ lisaaAjo }) => {
   );
 };
 
-export default LisaaAjo;
+export default LisaaTilaus;
