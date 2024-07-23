@@ -2,16 +2,16 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { auth, db } from '../../firebase.js'; 
 import { collection, getDocs, addDoc, updateDoc, deleteDoc, doc } from 'firebase/firestore';
+import './App.css';
 import KaikkiTilaukset from '../KaikkiTilaukset/KaikkiTilaukset.jsx';
 import KeratytTilaukset from '../KeratytTilaukset/KeratytTilaukset.jsx';
 import KerattavatTilaukset from '../KerattavatTilaukset/KerattavatTilaukset.jsx';
-import ToimitetutTilaukset from '../ToimitetutTilaukset/ToimitetutTilaukset.jsx';
 import LisaaTilaus from '../LisaaTilaus/LisaaTilaus.jsx';
-import TopBar from '../YlaPalkki/TopBar.jsx';
-import Tankkaukset from '../Tankkaukset/Tankkaukset.jsx';
 import Login from '../Login'; 
-import './App.css';
+import Tankkaukset from '../Tankkaukset/Tankkaukset.jsx';
 import TapahtumanMuokkaus from '../TapahtumanMuokkaus/TapahtumanMuokkaus.jsx';
+import ToimitetutTilaukset from '../ToimitetutTilaukset/ToimitetutTilaukset.jsx';
+import TopBar from '../YlaPalkki/TopBar.jsx';
 
 //Kaikki ajot = Kaikki Tilaukset
 //Ei aloitetut = Kerättävät
