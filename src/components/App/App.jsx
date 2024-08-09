@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { auth, db } from '../../firebase.js'; 
-import { collection, getDocs, addDoc, updateDoc, deleteDoc, doc } from 'firebase/firestore';
+import { collection, getDocs, addDoc, updateDoc, deleteDoc, doc, query, where } from 'firebase/firestore';
 import './App.css';
 import KaikkiTilaukset from '../KaikkiTilaukset/KaikkiTilaukset.jsx';
 import KeratytTilaukset from '../KeratytTilaukset/KeratytTilaukset.jsx';
 import KerattavatTilaukset from '../KerattavatTilaukset/KerattavatTilaukset.jsx';
 import LisaaTilaus from '../LisaaTilaus/LisaaTilaus.jsx';
-import Login from '../Login'; 
+import Login from '../Login';
+import Profiili from '../Profiili/Profiili.jsx';
 import Tankkaukset from '../Tankkaukset/Tankkaukset.jsx';
 import TapahtumanMuokkaus from '../TapahtumanMuokkaus/TapahtumanMuokkaus.jsx';
 import ToimitetutTilaukset from '../ToimitetutTilaukset/ToimitetutTilaukset.jsx';
@@ -37,16 +38,22 @@ const App = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const querySnapshot = await getDocs(collection(db, 'ajot'));
+      if (!user) return;
+
+      const q = query(collection(db, 'ajot'), where('userId', '==', user.uid));
+      const querySnapshot = await getDocs(q);
       const ajotData = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+
       setAjot(ajotData);
       setFilteredAjot(ajotData);
     };
 
     fetchData();
-  }, []);
+  }, [user]);
 
   const lisaaTilaus = async (tilausNro, paivamaara, tapahtumanTyyppi, kohde, kollienMaara, lisaTiedot) => {
+    if (!user) return;
+    
     const uusiAjo = {
       tilausNro,
       paivamaara,
@@ -54,7 +61,8 @@ const App = () => {
       kohde,
       kollienMaara,
       lisaTiedot,
-      status: 'Ei aloitettu'
+      status: 'Ei aloitettu',
+      userId: user.uid
     };
 
     try {
@@ -63,7 +71,7 @@ const App = () => {
       setAjot([...ajot, addedAjo]);
       setFilteredAjot([...ajot, addedAjo]);
     } catch (e) {
-      console.error('Error adding document: ', e);
+      console.error('Virhe tilauksen lisäämisessä: ', e);
     }
   };
 
@@ -77,9 +85,8 @@ const App = () => {
       );
       setAjot(updatedAjot);
       setFilteredAjot(updatedAjot);
-      console.log("haloo")
     } catch (e) {
-      console.error('Error updating document: ', e);
+      console.error('Virhe tilauksen päivittämisessä: ', e);
     }
   };
 
@@ -93,7 +100,7 @@ const App = () => {
       setAjot(updatedAjot);
       setFilteredAjot(updatedAjot);
     } catch (e) {
-      console.error('Error updating document: ', e);
+      console.error('Virhe tilauksen päivittämisessä: ', e);
     }
   };
 
@@ -113,7 +120,7 @@ const App = () => {
       setAjot(updatedAjot);
       setFilteredAjot(updatedAjot);
     } catch (e) {
-      console.error('Error deleting document: ', e);
+      console.error('<Virhe tilauksen poistamisessa: ', e);
     }
   };
 
@@ -149,6 +156,7 @@ const App = () => {
               <Route path="/toimitetut" element={<ToimitetutTilaukset ajot={filteredAjotWithoutTankkaus.filter(ajo => ajo.status === 'Toimitettu')} aloitaMuokkaus={aloitaMuokkaus} paivitaAjo={paivitaAjo} />} />
               <Route path="/tankkaukset" element={<Tankkaukset ajot={ajot} poistaAjo={poistaAjo} paivitaAjo={paivitaAjo} />} />
               <Route path="/lisaa-ajo" element={<LisaaTilaus lisaaTilaus={lisaaTilaus} />} />
+              <Route path="/profiili" element={<Profiili/>}/>
             </Routes>
           </>
         ) : (

@@ -90,6 +90,7 @@ const TopBar = ({ ajot, setFilteredAjot }) => {
           <Link to="/keratyt" onClick={() => setMenuOpen(false)}>Kerätyt</Link>
           <Link to="/toimitetut" onClick={() => setMenuOpen(false)}>Toimitetut</Link>
           <Link to="/tankkaukset" onClick={() => setMenuOpen(false)}>Tankkaukset</Link>
+          <Link to="/profiili" onClick={() => setMenuOpen(false)}>Profiili</Link>
         </div>
         <div className="topBar-content-right">
           <Link to="/lisaa-ajo" className="add-button">+</Link>
