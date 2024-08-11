@@ -52,7 +52,10 @@ const App = () => {
   }, [user]);
 
   const lisaaTilaus = async (tilausNro, paivamaara, tapahtumanTyyppi, kohde, kollienMaara, lisaTiedot) => {
-    if (!user) return;
+    if (!user) {
+      console.error('User is not authenticated');
+      return;
+    }
     
     const uusiAjo = {
       tilausNro,
@@ -76,6 +79,12 @@ const App = () => {
   };
 
   const muutaStatus = async (id, uusiStatus) => {
+
+    if (!user) {
+      console.error('User is not authenticated');
+      return;
+    }
+
     const ajoDocRef = doc(db, 'ajot', id);
 
     try {
@@ -90,8 +99,15 @@ const App = () => {
     }
   };
 
-  const paivitaAjo = async (paivitettyAjo) => { 
+  const paivitaAjo = async (paivitettyAjo) => {
+
+    if (!user) {
+      console.error('User is not authenticated');
+      return;
+    }
+
     const ajoDocRef = doc(db, 'ajot', paivitettyAjo.id);
+
     try {
       await updateDoc(ajoDocRef, paivitettyAjo);
       const updatedAjot = ajot.map(ajo =>
@@ -113,6 +129,12 @@ const App = () => {
   };
 
   const poistaAjo = async (id) => {
+
+    if (!user) {
+      console.error('User is not authenticated');
+      return;
+    }
+    
     const ajoDocRef = doc(db, 'ajot', id);
     try {
       await deleteDoc(ajoDocRef);
@@ -120,7 +142,7 @@ const App = () => {
       setAjot(updatedAjot);
       setFilteredAjot(updatedAjot);
     } catch (e) {
-      console.error('<Virhe tilauksen poistamisessa: ', e);
+      console.error('Virhe tilauksen poistamisessa: ', e);
     }
   };
 
