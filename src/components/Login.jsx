@@ -1,4 +1,3 @@
-// Login.jsx
 import React from 'react';
 import { signInWithGoogle } from '../firebase';
 

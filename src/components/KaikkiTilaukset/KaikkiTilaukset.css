@@ -89,11 +89,11 @@
 }
 
 .action-button.started {
-  background-color: #ffc107; /* Vihreä väri aloitetulle */
+  background-color: #ffc107; 
 }
 
 .action-button.completed {
-  background-color: #28a745; /* Harmaa väri suoritetulle */ 
+  background-color: #28a745;
 }
 
 .action-button.not-started {
