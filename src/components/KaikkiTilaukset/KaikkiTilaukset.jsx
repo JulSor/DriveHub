@@ -89,7 +89,6 @@ const KaikkiTilaukset = ({ ajot, muutaStatus, paivitaAjo, poistaAjo }) => {
           {ajot.map((ajo) => (
             <li className={`ajo-item ${avattuAjoId === ajo.id ? 'open' : ''}`} key={ajo.id} onClick={() => toggleAjoDetails(ajo.id)}>
               <div className='ajo-info'>
-                <span className='nimi'>{ajo.nimi}</span>
                 <span className='tilausNro'><strong>Tilausnumero:</strong> {ajo.tilausNro}</span>
                 <span className='paivamaara'><strong>Päivämäärä:</strong> {formatPaivamaara(ajo.paivamaara)}</span>
                 <span className='kohde'><strong>Kohde:</strong> {ajo.kohde}</span>

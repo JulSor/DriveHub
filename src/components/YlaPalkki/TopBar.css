@@ -16,11 +16,6 @@
     justify-content: space-between;
   }
 
-  .topBar-content-left {
-    display: flex;
-    align-items: center;
-  }
-
   .topBar-content-right {
     display: flex;
     align-items: center;
