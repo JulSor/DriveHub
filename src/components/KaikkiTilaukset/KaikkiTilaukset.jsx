@@ -59,6 +59,8 @@ const KaikkiTilaukset = ({ ajot, muutaStatus, paivitaAjo, poistaAjo }) => {
     }
   };
 
+
+  //Avaa ja sulkee klikattaessa enemmän tietoja näkyviin tilauksessa
   const toggleAjoDetails = (ajoId) => {
     if (avattuAjoId === ajoId) {
       setAvattuAjoId(null);
@@ -67,6 +69,7 @@ const KaikkiTilaukset = ({ ajot, muutaStatus, paivitaAjo, poistaAjo }) => {
     }
   };
 
+  //Avaa statuksen valinnan 
   const toggleStatusButtons = (ajoId) => {
     if (statusNappiAvoinna === ajoId) {
       setStatusNappiAvoinna(null);

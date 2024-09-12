@@ -6,6 +6,8 @@ const TopBar = ({ ajot, setFilteredAjot }) => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
 
+
+  //Hakupalkin toiminnot
   useEffect(() => {
     const filteredAjot = ajot.filter(ajo => {
       const nimi = ajo.nimi ? ajo.nimi.toLowerCase() : '';
