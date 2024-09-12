@@ -16,6 +16,13 @@ Projektin testauksessa on hyödynnetty seuraavia tekniikoita:
  - Vitest (jest) ja
  - React Testing Library.
 
+## Asennus
+
+1. Lataa tai kloonaa tämä repo.
+2. Suorita projektikansiossa komento `npm install`.
+3. Käynnistä testausympäristö komennolla `npm run test`.
+4. Käynnistä kehitysympäristö komennolla `npm run dev`. 
+
 ## Käyttö
 
 Testaa sovellusta osoitteessa https://ajosovellus.web.app/.
