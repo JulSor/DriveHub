@@ -31,7 +31,7 @@ Testaa sovellusta osoitteessa https://ajosovellus.web.app/.
 
 ## Projektin tila
 
-Tämä projekti on kesken.
+Tämä projekti on monilta osin kesken ja sitä tullaan päivittämään.
 
 ## Ylläpitäjä
 
