@@ -11,6 +11,8 @@ Harjoitustyönä omaan työhöni varasto- ja kuljetustyöntekijänä toteutettu 
 Projektin on toteutetuksessa on hyödynnetty mm. seuraavia tekniikoita: 
  - React
  - React Router
+ - Firebase database
+ - Firebase hosting
 
 Projektin testauksessa on hyödynnetty seuraavia tekniikoita:
  - Vitest (jest) ja
