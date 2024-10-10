@@ -4,7 +4,9 @@ Harjoitustyönä omaan työhöni varasto- ja kuljetustyöntekijänä toteutettu 
 
 ## Kuvaruutukopiot
 
-(https://github.com/user-attachments/assets/b25762f5-0eec-4cb2-8a2f-d25ef4b33f1b)
+![drivehub_mobiili](https://github.com/user-attachments/assets/2a847222-4693-4a18-b527-1465e262f78d)
+![dhubmobiili](https://github.com/user-attachments/assets/e0916037-cdf8-45d9-96fb-f46d1bde4934)
+
 
 ## Tekniikat
 
